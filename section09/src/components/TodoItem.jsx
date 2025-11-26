@@ -1,7 +1,9 @@
 import "./TodoItem.css";
-import { memo } from "react";
+import { memo, useContext } from "react";
+import { TodoContext } from "../App";
 
-const TodoItem = ({ todo, onDelete, updateDone }) => {
+const TodoItem = ({ todo }) => {
+  const { onDelete, updateDone } = useContext(TodoContext);
   const onClickButton = () => {
     onDelete(todo.id);
   };
@@ -27,4 +29,5 @@ const TodoItem = ({ todo, onDelete, updateDone }) => {
 //   if (prevProps.todo === nextProps.todo) return true;
 //   return false;
 // });
+// onDelete, updateDone 새로 생성되지 않도록 useCallback 사용했기때문에 memo만 해도 됨
 export default memo(TodoItem);
