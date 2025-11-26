@@ -5,11 +5,15 @@ import Diary from "./pages/Diary";
 import New from "./pages/New";
 import Notfound from "./pages/Notfound";
 import Layout from "./components/Layout";
+import { getEmotionImage } from "./util/get-emotion-image";
 
 function App() {
   return (
     <>
       <Layout>
+        <div>
+          <img src={getEmotionImage(1)} alt="좋음" />
+        </div>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/new" element={<New />} />
