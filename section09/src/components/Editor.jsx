@@ -1,11 +1,12 @@
 import { useState, useRef, useContext } from "react";
 import "./Editor.css";
-import { TodoDispatchContext } from "../App";
+import { useTodoStore } from "../store/useTodoStore";
 
 const Editor = () => {
   const [content, setContent] = useState("");
   const contentRef = useRef();
-  const { onCreate } = useContext(TodoDispatchContext);
+  const createTodo = useTodoStore((state) => state.createTodo);
+  const idRef = useRef(0);
 
   const setChangeContent = (e) => {
     setContent(e.target.value);
@@ -15,7 +16,12 @@ const Editor = () => {
       contentRef.current.focus();
       return;
     }
-    onCreate(content);
+    createTodo({
+      id: idRef.current++,
+      isDone: false,
+      content: content,
+      date: new Date().getTime(),
+    });
     setContent("");
   };
 

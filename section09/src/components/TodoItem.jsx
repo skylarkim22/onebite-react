@@ -1,15 +1,17 @@
 import "./TodoItem.css";
 import { memo, useContext } from "react";
-import { TodoDispatchContext } from "../App";
+import { useTodoStore } from "../store/useTodoStore";
 
 const TodoItem = ({ todo }) => {
-  const { onDelete, updateDone } = useContext(TodoDispatchContext);
+  const deleteTodo = useTodoStore((state) => state.deleteTodo);
+  const updateTodo = useTodoStore((state) => state.updateTodo);
+
   const onClickButton = () => {
-    onDelete(todo.id);
+    deleteTodo(todo.id);
   };
 
   const onChangeIsDone = () => {
-    updateDone(todo.id);
+    updateTodo(todo.id);
   };
 
   return (
