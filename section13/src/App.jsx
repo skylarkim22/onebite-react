@@ -4,23 +4,47 @@ import Home from "./pages/Home";
 import Diary from "./pages/Diary";
 import New from "./pages/New";
 import Notfound from "./pages/Notfound";
-import Layout from "./components/Layout";
+import Button from "./components/Button";
+import Header from "./components/Header";
 import { getEmotionImage } from "./util/get-emotion-image";
 
 function App() {
   return (
     <>
-      <Layout>
-        <div>
-          <img src={getEmotionImage(1)} alt="좋음" />
-        </div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/new" element={<New />} />
-          <Route path="/diary/:id" element={<Diary />} />
-          <Route path="*" element={<Notfound />} />
-        </Routes>
-      </Layout>
+      <Header
+        title="제목"
+        rightChild={<Button text="right" />}
+        leftChild={<Button text="left" />}
+      />
+      <Button
+        text="123"
+        type="DEFAULT"
+        onClick={() => {
+          console.log("123 click");
+        }}
+      />
+      <Button
+        text="123"
+        type="NEGATIVE"
+        onClick={() => {
+          console.log("123 click");
+        }}
+      />
+
+      <Button
+        text="123"
+        type="POSITIVE"
+        onClick={() => {
+          console.log("123 click");
+        }}
+      />
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/new" element={<New />} />
+        <Route path="/diary/:id" element={<Diary />} />
+        <Route path="*" element={<Notfound />} />
+      </Routes>
     </>
   );
 }
