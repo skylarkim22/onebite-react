@@ -11,7 +11,14 @@ html,
 body {
   margin: 0px;
   width: 100%;
+  background-color: #f6f6f6;
+  display: flex;
+  justify-content: center;
   background-color: white;
+}
+
+body {
+  height: 100%;
 }
 
 #root {
