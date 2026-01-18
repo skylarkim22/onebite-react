@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 export default function Register() {
   const [input, setInput] = useState({
@@ -8,17 +8,30 @@ export default function Register() {
     bio: "",
   });
 
+  const countRef = useRef(0);
+  const inputRef = useRef();
+
   const onChange = (e) => {
+    countRef.current++;
+    console.log(countRef.current);
+
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
   };
 
+  const onSubmit = () => {
+    if (input.name === "") {
+      inputRef.current.focus();
+    }
+  };
+
   return (
     <>
       <div>
         <input
+          ref={inputRef}
           type="text"
           name="name"
           value={input.name}
@@ -49,6 +62,8 @@ export default function Register() {
       <div>
         <textarea value={input.bio} onChange={onChange} name="bio"></textarea>
       </div>
+
+      <button onClick={onSubmit}>제출</button>
     </>
   );
 }
