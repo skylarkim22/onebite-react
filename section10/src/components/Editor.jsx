@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, memo } from "react";
 import "./Editor.css";
 
 const Editor = ({ onCreate }) => {
@@ -37,4 +37,4 @@ const Editor = ({ onCreate }) => {
   );
 };
 
-export default Editor;
+export default memo(Editor);
