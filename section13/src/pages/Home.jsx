@@ -11,19 +11,19 @@ const getMothlyData = (pivotDate, data) => {
     1,
     0,
     0,
-    0
+    0,
   ).getTime();
   // 이전달에 마지막날로 설정
   const endTime = new Date(
     pivotDate.getFullYear(),
     pivotDate.getMonth() + 1,
     0,
-    0,
-    0,
-    0
+    23,
+    59,
+    59,
   );
   return data.filter(
-    (item) => item.createdDate >= beginTime && item.createdDate <= endTime
+    (item) => item.createdDate >= beginTime && item.createdDate <= endTime,
   );
 };
 
