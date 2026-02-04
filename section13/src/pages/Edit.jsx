@@ -4,27 +4,14 @@ import Header from "../components/Header";
 import Editor from "../components/Editor";
 import Button from "../components/Button";
 import { DiaryDispatchContext, DiaryStateContext } from "../App";
+import useDiary from "../hooks/useDiary";
 
 const Edit = () => {
   const params = useParams();
   const targetId = params.id;
   const nav = useNavigate();
   const { onDelete, onUpdate } = useContext(DiaryDispatchContext);
-  const data = useContext(DiaryStateContext);
-  const [currentDiaryItem, setCurrentDiaryItem] = useState();
-
-  useEffect(() => {
-    const currentDiaryItem = data.find(
-      (d) => String(d.id) === String(targetId),
-    );
-
-    if (!currentDiaryItem) {
-      window.alert("존재하지 않는 일기입니다.");
-      nav("/", { replace: true });
-    }
-
-    setCurrentDiaryItem(currentDiaryItem);
-  }, [targetId]);
+  const currentDiaryItem = useDiary(targetId);
 
   const handlerDelete = () => {
     const isConfirm = window.confirm("일기를 정말 삭제할까요?");
@@ -45,7 +32,6 @@ const Edit = () => {
     nav("/", { replace: true });
   };
 
-  console.log("currentDiaryItem", currentDiaryItem);
   return (
     <div>
       <Header
