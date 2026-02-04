@@ -7,44 +7,17 @@ import New from "./pages/New";
 import Notfound from "./pages/Notfound";
 import Edit from "./pages/Edit";
 
-const mockData = [
-  {
-    id: 1,
-    createdDate: new Date("2025-12-1").getTime(),
-    emotionId: 1,
-    content: "1번 일기 내용",
-  },
-  {
-    id: 2,
-    createdDate: new Date("2025-12-2").getTime(),
-    emotionId: 2,
-    content: "2번 일기 내용",
-  },
-  {
-    id: 3,
-    createdDate: new Date("2025-11-2").getTime(),
-    emotionId: 2,
-    content: "3번 일기 내용",
-  },
-  {
-    id: 4,
-    createdDate: new Date("2026-01-2").getTime(),
-    emotionId: 2,
-    content: "4번 일기 내용",
-  },
-];
-
 function reducer(state, action) {
   switch (action.type) {
     case "CREATE":
       return [action.data, ...state];
     case "UPDATE":
       return state.map((diary) =>
-        String(diary.id) === String(action.data.id) ? action.data : diary
+        String(diary.id) === String(action.data.id) ? action.data : diary,
       );
     case "DELETE":
       return state.filter(
-        (diary) => String(diary.id) !== String(action.targetId)
+        (diary) => String(diary.id) !== String(action.targetId),
       );
     default:
       state;
@@ -55,9 +28,9 @@ export const DiaryStateContext = createContext();
 export const DiaryDispatchContext = createContext();
 
 function App() {
-  const [data, dispatch] = useReducer(reducer, mockData);
+  const [data, dispatch] = useReducer(reducer, []);
 
-  const refId = useRef(3);
+  const refId = useRef(1);
 
   const onCreate = (createdDate, emotionId, content) => {
     dispatch({
@@ -71,7 +44,7 @@ function App() {
     });
   };
 
-  const onUdpate = (id, createdDate, emotionId, content) => {
+  const onUpdate = (id, createdDate, emotionId, content) => {
     dispatch({
       type: "UPDATE",
       data: {
@@ -93,7 +66,7 @@ function App() {
   return (
     <>
       <DiaryStateContext.Provider value={data}>
-        <DiaryDispatchContext.Provider value={{ onCreate, onUdpate, onDelete }}>
+        <DiaryDispatchContext.Provider value={{ onCreate, onUpdate, onDelete }}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/new" element={<New />} />
